@@ -4,10 +4,37 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.0/angular.min.js"></script>
+  <script src="tinycolor.js"></script>
   <script src="index.js"></script>
   <link href="index.css" rel="stylesheet" type="text/css">
   <title>Coloration</title>
 </head>
 <body ng-controller="colorationCtrl">
+  <div
+    class="color"
+    ng-style="{'background': normalize(color)}">
+    <div class="info">
+      <div class="hex">
+        <!--
+        <input type="text" class="color-input hint" maxlength="7" spellcheck="false" readonly ng-model="hint">
+        -->
+        <input type="text" class="color-input" maxlength="7" spellcheck="false" ng-model="color" ng-change="color = clean(color)">
+      </div>
+    </div>
+  </div>
+  <div
+    class="saturation-gradient"
+    ng-style="{'background': getSaturationGradient(normalize(color))}"
+    ng-click="color = calculateSaturation($event, normalize(color))">
+  </div>
+  <div
+    class="fluid-color"
+    ng-style="{'background': fluidColor}"
+    ng-mousemove="fluidColor = calculateColor($event)"
+    ng-click="color = fluidColor">
+    <div class="info">
+      Pick a color
+    </div>
+  </div>
 </body>
 </html>
